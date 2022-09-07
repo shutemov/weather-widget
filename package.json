@@ -11,7 +11,8 @@
   "dependencies": {
     "core-js": "^3.8.3",
     "vue": "latest",
-    "vue-loader": "^17.0.0"
+    "vue-loader": "^17.0.0",
+    "webpack": "^5.74.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.4.0",
