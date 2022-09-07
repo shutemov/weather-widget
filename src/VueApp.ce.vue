@@ -1,11 +1,18 @@
 <template>
   <div class="main-app">
-    <ComponentA />
+    <OWeatherCard />
   </div>
 </template>
 
 <script setup lang="ts">
-import ComponentA from "./components/ComponentA.vue";
+import { onMounted } from "vue";
+import OWeatherCard from "./components/OWeatherCard.vue";
+
+import { OPEN_WEATHER_API_KEY } from "@/constants";
+
+onMounted(async () => {
+  console.log(OPEN_WEATHER_API_KEY);
+});
 </script>
 
 <style scoped lang="scss">
