@@ -29,7 +29,7 @@ onMounted(async () => {
   font-family: "Courier New", Courier, monospace;
   padding: 10px 16px;
   min-width: 200px;
-  max-width: 300px;
+  max-width: 350px;
   height: 500px;
   display: flex;
   flex-direction: column;
@@ -59,13 +59,45 @@ onMounted(async () => {
     }
 
     > .temperature {
-      font-size: 25pt;
+      font-size: 30pt;
       font-weight: bold;
       flex-grow: 1;
       text-align: center;
 
       &::after {
-        content: "°";
+        content: "°C";
+      }
+    }
+  }
+
+  > .weather-info {
+    padding: 10px;
+
+    > .info-row {
+      &:not(:first-child) {
+        margin-top: 15px;
+      }
+
+      display: flex;
+      justify-content: space-between;
+
+      > .wind-speed {
+        display: flex;
+        align-items: center;
+        > .img {
+          transform: rotate(90deg);
+        }
+
+        > .value {
+          margin-left: 10px;
+        }
+      }
+      > .pressure {
+        display: flex;
+        align-items: center;
+        > .value {
+          margin-left: 10px;
+        }
       }
     }
   }
