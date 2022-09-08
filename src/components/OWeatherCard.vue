@@ -1,64 +1,32 @@
 <template>
   <div class="weather-card">
-    <div class="header">
-      <h1 class="title">{{ city }}, {{ country }}</h1>
-      <div class="gear">
-        <img
-          class="image"
-          alt="settings"
-          width="30"
-          height="30"
-          src="https://api.iconify.design/typcn:cog-outline.svg"
-        />
-      </div>
-    </div>
-    <div class="temperature-info">
-      <img
-        class="image"
-        :alt="`Weather state: ${weatherTitle}`"
-        :src="iconSrc"
-      />
-      <div class="temperature">{{ wholePartOfTemp }}</div>
-    </div>
+    <MWeatherCardHeader
+      :title="countryTitle"
+      @click:icon="$emit('click:settings')"
+    />
+    <MTemperatureInfo
+      :weather-title="weatherTitle"
+      :temperature="wholePartOfTemp"
+      :icon-src="iconSrc"
+    />
     <div class="description">
       Feels like {{ feelsLikeTemp }}. {{ weatherTitle }}.
       {{ capitalizedWeatherDescription }}.
     </div>
-    <div class="weather-info">
-      <div class="info-row">
-        <div class="wind-speed">
-          <img
-            class="img"
-            alt="Wind direction"
-            :width="weatherInfoImgSize"
-            :height="weatherInfoImgSize"
-            src="https://api.iconify.design/typcn:location-arrow.svg"
-          />
-          <span class="value">{{ windSpeed }} m/s SSE</span>
-        </div>
-        <div class="pressure">
-          <img
-            class="img"
-            :width="weatherInfoImgSize"
-            :height="weatherInfoImgSize"
-            src="https://api.iconify.design/wi:barometer.svg"
-            alt="barometer"
-          />
-          <span class="value">{{ pressure }} hPa</span>
-        </div>
-      </div>
-      <div class="info-row">
-        <div class="humidity">Humidity: {{ humidity }}%</div>
-        <div class="dew-point">
-          <span class="value">Dew point: 111 °C</span>
-        </div>
-      </div>
-      <div class="info-row">Visibility: {{ visibilityM2Km }}km</div>
-    </div>
+    <MAdditionalWeatherInfo
+      :wind-speed="windSpeed"
+      :pressure="pressure"
+      :humidity="humidity"
+      :visibility="visibilityM2Km"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
+import MWeatherCardHeader from "./MWeatherCardHeader.vue";
+import MTemperatureInfo from "./MTemperatureInfo.vue";
+import MAdditionalWeatherInfo from "./MAdditionalWeatherInfo.vue";
+
 import mockData from "@/assets/mockWeather.json";
 import { computed, onMounted, ref } from "vue";
 
@@ -106,6 +74,8 @@ onMounted(() => {
   visibility.value = _visibility;
 });
 
+defineEmits(["click:settings"]);
+
 const iconSrc = computed(
   () => `http://openweathermap.org/img/wn/${icon.value}@4x.png`
 );
@@ -119,13 +89,12 @@ const capitalizedWeatherDescription = computed(
 const visibilityM2Km = computed(() => visibility.value / 1000);
 
 const wholePartOfTemp = computed(() => Math.trunc(temp.value));
+
+const countryTitle = computed(() => city.value + " ," + country.value);
+
+const handle = () => {
+  console.log("handle settings click");
+};
 </script>
 
-<style lang="scss" scoped>
-.weather-card {
-  > .header {
-    display: flex;
-    align-content: space-between;
-  }
-}
-</style>
+<style lang="scss"></style>
