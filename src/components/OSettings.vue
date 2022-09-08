@@ -84,6 +84,21 @@ const isValidQuery = () => {
 const normalizeString = (str: string) =>
   str.replace(/\s/g, "").toLowerCase().trim();
 
+const distinctCitiesByIsoCode = (cities: TCity[]) => {
+  const uniqueIsoCode: string[] = [];
+
+  return cities.filter((country: any) => {
+    const isDuplicate = uniqueIsoCode.includes(country.country);
+
+    if (!isDuplicate) {
+      uniqueIsoCode.push(country.country);
+
+      return true;
+    }
+
+    return false;
+  });
+};
 </script>
 
 <style scoped lang="scss"></style>
