@@ -80,6 +80,10 @@ const isValidQuery = () => {
 
   return isQueryValid;
 };
+
+const normalizeString = (str: string) =>
+  str.replace(/\s/g, "").toLowerCase().trim();
+
 </script>
 
 <style scoped lang="scss"></style>
