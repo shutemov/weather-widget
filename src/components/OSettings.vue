@@ -12,7 +12,8 @@
       group="people"
       @start="drag = true"
       @end="drag = false"
-      item-key="id"
+      item-key="isoCode"
+      @change="handleDraggableChange"
     >
       <template #item="{ element }">
         <div class="data-row">
@@ -51,7 +52,11 @@
             :value="`${country.name}, ${country.isoCode}`"
           ></option>
         </datalist>
-        <img class="enter" src="https://api.iconify.design/ion:add.svg" />
+        <img
+          class="enter"
+          src="https://api.iconify.design/ion:add.svg"
+          @keydown.enter="addItem"
+        />
       </div>
     </div>
   </div>
@@ -60,11 +65,14 @@
 <script setup lang="ts">
 import MWeatherCardHeader from "./MWeatherCardHeader.vue";
 
-import { Ref, ref } from "vue";
+import { onMounted, Ref, ref } from "vue";
 import { useDebounceFn } from "@vueuse/core";
 import draggable from "vuedraggable";
 
 import { OPEN_WEATHER_API_KEY } from "@/constants";
+
+import { get, set } from "@/helpers/storage";
+import { EStorageKeys } from "@/types/storage";
 
 type TCity = {
   name: string;
@@ -84,11 +92,21 @@ const drag = ref(false);
 
 defineEmits(["click:close"]);
 
-const addItem = () => {
+onMounted(async () => {
+  const data = await get(EStorageKeys.cities);
+  cities.value = data !== null ? JSON.parse(data) : [];
+});
+
+const addItem = async () => {
   if (isValidQuery()) {
     cities.value.push({
       id: cities.value.length + 1,
       name: cityQuery.value,
+    });
+
+    await set({
+      key: EStorageKeys.cities,
+      value: JSON.stringify(cities.value),
     });
 
     cityQuery.value = "";
@@ -151,6 +169,11 @@ const distinctCitiesByIsoCode = (cities: TCity[]) => {
 
     return false;
   });
+};
+
+const handleDraggableChange = async () => {
+  console.log(cities.value);
+  await set({ key: EStorageKeys.cities, value: JSON.stringify(cities.value) });
 };
 </script>
 
