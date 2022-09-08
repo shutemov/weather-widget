@@ -34,6 +34,18 @@ const cityQuery = ref("");
 const drag = ref(false);
 
 defineEmits(["click:close"]);
+
+const addItem = () => {
+  if (isValidQuery()) {
+    cities.value.push({
+      id: cities.value.length + 1,
+      name: cityQuery.value,
+    });
+
+    cityQuery.value = "";
+  }
+};
+
 </script>
 
 <style scoped lang="scss"></style>
