@@ -50,6 +50,24 @@ const deleteItem = (id: number) => {
   cities.value = cities.value.filter((item) => item.id !== id);
 };
 
+const getSuggestedCities = async () => {
+  if (!cityQuery.value) return;
+
+  const normalizedQueryString = normalizeString(cityQuery.value);
+
+  const res = await fetch(
+    `https://api.openweathermap.org/geo/1.0/direct?q=${normalizedQueryString}&limit=5&appid=${OPEN_WEATHER_API_KEY}`
+  );
+  const data = await res.json();
+
+  suggestedCities.value = distinctCitiesByIsoCode(data).map(
+    ({ name, country: isoCode }: any) => ({
+      name,
+      isoCode,
+    })
+  );
+};
+
 </script>
 
 <style scoped lang="scss"></style>
