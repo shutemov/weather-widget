@@ -68,6 +68,18 @@ const getSuggestedCities = async () => {
   );
 };
 
+const isValidQuery = () => {
+  const preparedQueryString = normalizeString(cityQuery.value);
+
+  const isQueryValid = !!suggestedCities.value.find((country) => {
+    const targetString = `${country.name}, ${country.isoCode}`;
+    const normalizedString = normalizeString(targetString);
+
+    return preparedQueryString === normalizedString;
+  });
+
+  return isQueryValid;
+};
 </script>
 
 <style scoped lang="scss"></style>
