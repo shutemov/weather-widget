@@ -50,6 +50,10 @@ const deleteItem = (id: number) => {
   cities.value = cities.value.filter((item) => item.id !== id);
 };
 
+const debounceSuggestedCities = useDebounceFn(async () => {
+  await getSuggestedCities();
+}, 1000);
+
 const getSuggestedCities = async () => {
   if (!cityQuery.value) return;
 
