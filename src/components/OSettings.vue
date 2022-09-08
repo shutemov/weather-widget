@@ -5,6 +5,55 @@
       actionImg="https://api.iconify.design/heroicons-outline:x.svg"
       @click:icon="$emit('click:close')"
     />
+
+    <draggable
+      class="cities-container"
+      v-model="cities"
+      group="people"
+      @start="drag = true"
+      @end="drag = false"
+      item-key="id"
+    >
+      <template #item="{ element }">
+        <div class="data-row">
+          <div class="wrapper">
+            <img
+              class="burger"
+              width="20"
+              height="20"
+              src="https://api.iconify.design/mdi-light:format-line-spacing.svg"
+            />
+            <span class="title">
+              {{ element.name }}
+            </span>
+          </div>
+          <img
+            src="https://api.iconify.design/mdi-light:delete.svg"
+            @click="deleteItem(element.id)"
+          />
+        </div>
+      </template>
+    </draggable>
+    <div class="search-input">
+      <h1 class="title">Add location:</h1>
+      <div class="input-wrapper">
+        <input
+          v-model="cityQuery"
+          class="input"
+          @keydown.enter="addItem"
+          @input="debounceSuggestedCities"
+          list="cityname"
+        />
+        <datalist id="cityname">
+          <option
+            v-for="(country, index) in suggestedCities"
+            :key="index"
+            :value="`${country.name}, ${country.isoCode}`"
+          ></option>
+        </datalist>
+        <img class="enter" src="https://api.iconify.design/ion:add.svg" />
+      </div>
+    </div>
   </div>
 </template>
 
