@@ -111,8 +111,12 @@ onMounted(async () => {
 }
 
 :deep(.settings-container) {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   > .header {
     display: flex;
+    flex-grow: 0;
     align-content: space-between;
     justify-content: space-between;
 
@@ -124,6 +128,55 @@ onMounted(async () => {
       height: 100%;
       display: flex;
       align-items: center;
+    }
+  }
+
+  > .cities-container {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+
+    > .data-row {
+      display: flex;
+      justify-content: space-between;
+      min-height: 30px;
+      background-color: lightgray;
+      margin-top: 16px;
+      padding: 4px 8px;
+
+      > .wrapper {
+        display: flex;
+        align-items: center;
+
+        > .burger {
+        }
+
+        > .title {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+
+  > .search-input {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 0;
+
+    > .input-wrapper {
+      display: flex;
+      > .input {
+        flex-grow: 1;
+      }
+    }
+    > .title {
+      font-size: 10pt;
     }
   }
 }
