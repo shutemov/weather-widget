@@ -1,14 +1,18 @@
 <template>
   <div class="main-app">
-    <OWeatherCard />
+    <OSettings v-if="isSettingsOn" @click:close="isSettingsOn = false" />
+    <OWeatherCard v-else @click:settings="isSettingsOn = true" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import OWeatherCard from "./components/OWeatherCard.vue";
+import OSettings from "./components/OSettings.vue";
 
 import { OPEN_WEATHER_API_KEY } from "@/constants";
+
+const isSettingsOn = ref(false);
 
 onMounted(async () => {
   console.log(OPEN_WEATHER_API_KEY);
@@ -25,12 +29,15 @@ onMounted(async () => {
   margin-top: 60px;
 }
 
-:deep(.weather-card) {
-  font-family: "Courier New", Courier, monospace;
-  padding: 10px 16px;
+.main-app {
   min-width: 200px;
   max-width: 350px;
+  padding: 10px 16px;
   height: 500px;
+  font-family: "Courier New", Courier, monospace;
+}
+
+:deep(.weather-card) {
   display: flex;
   flex-direction: column;
   > .header {
@@ -99,6 +106,24 @@ onMounted(async () => {
           margin-left: 10px;
         }
       }
+    }
+  }
+}
+
+:deep(.settings-container) {
+  > .header {
+    display: flex;
+    align-content: space-between;
+    justify-content: space-between;
+
+    > .title {
+      font-size: 15pt;
+    }
+
+    > .gear {
+      height: 100%;
+      display: flex;
+      align-items: center;
     }
   }
 }
