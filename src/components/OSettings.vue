@@ -46,6 +46,10 @@ const addItem = () => {
   }
 };
 
+const deleteItem = (id: number) => {
+  cities.value = cities.value.filter((item) => item.id !== id);
+};
+
 </script>
 
 <style scoped lang="scss"></style>
