@@ -1,8 +1,16 @@
 <template>
-  <div class="header">
-    <h1 class="title">{{ title }}</h1>
-    <div class="gear">
+  <div
+    class="header"
+    style="
+      display: flex;
+      align-content: space-between;
+      justify-content: space-between;
+    "
+  >
+    <h1 class="title" style="font-size: 15pt">{{ title }}</h1>
+    <div class="img" style="height: 100%; display: flex; align-items: center">
       <img
+        v-if="actionImg"
         class="image"
         alt="Settings"
         :width="actionImgSize"
@@ -20,11 +28,11 @@ defineProps({
   actionImgSize: { type: Number, default: 30 },
   actionImg: {
     type: String,
-    default: "https://api.iconify.design/typcn:cog-outline.svg",
+    default: "",
   },
 });
 
-defineEmits(["click:settings"]);
+defineEmits(["click:icon"]);
 </script>
 
 <style></style>
