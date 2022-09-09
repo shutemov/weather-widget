@@ -1,13 +1,6 @@
 <template>
-  <div
-    class="header"
-    style="
-      display: flex;
-      align-content: space-between;
-      justify-content: space-between;
-    "
-  >
-    <h1 class="title" style="font-size: 15pt">{{ title }}</h1>
+  <div class="header">
+    <h1 class="title">{{ title }}</h1>
     <div class="img" style="height: 100%; display: flex; align-items: center">
       <img
         v-if="actionImg"
@@ -35,4 +28,21 @@ defineProps({
 defineEmits(["click:icon"]);
 </script>
 
-<style></style>
+<style scoped lang="scss">
+.header {
+  display: flex;
+  flex-grow: 0;
+  align-content: space-between;
+  justify-content: space-between;
+
+  > .title {
+    font-size: 15pt;
+  }
+
+  > .img {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+}
+</style>

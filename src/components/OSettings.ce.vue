@@ -63,7 +63,7 @@
 </template>
 
 <script setup lang="ts">
-import MWidgetHeader from "./MWidgetHeader.vue";
+import MWidgetHeader from "./MWidgetHeader.ce.vue";
 
 import { onMounted, Ref, ref } from "vue";
 import { useDebounceFn } from "@vueuse/core";
@@ -177,4 +177,55 @@ const updateLocalStorage = async () =>
   await set({ key: EStorageKeys.cities, value: JSON.stringify(cities.value) });
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.settings-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  > .search-input {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 0;
+    > .input-wrapper {
+      display: flex;
+      > .input {
+        flex-grow: 1;
+      }
+    }
+    > .title {
+      font-size: 10pt;
+    }
+  }
+
+  > .cities-container {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+
+    > .data-row {
+      display: flex;
+      justify-content: space-between;
+      min-height: 30px;
+      background-color: lightgray;
+      margin-top: 16px;
+      padding: 4px 8px;
+
+      > .wrapper {
+        display: flex;
+        align-items: center;
+
+        > .title {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+}
+</style>

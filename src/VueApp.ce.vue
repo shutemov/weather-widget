@@ -46,9 +46,9 @@
 <script setup lang="ts">
 import { computed, onMounted, Ref, ref } from "vue";
 
-import OWeatherCard from "@/components/OWeatherCard.vue";
-import OSettings, { TDataRow } from "@/components/OSettings.vue";
-import MWidgetHeader from "@/components/MWidgetHeader.vue";
+import OWeatherCard from "@/components/OWeatherCard.ce.vue";
+import OSettings, { TDataRow } from "@/components/OSettings.ce.vue";
+import MWidgetHeader from "@/components/MWidgetHeader.ce.vue";
 
 import { get } from "@/helpers/storage";
 import { EStorageKeys } from "@/types/storage";
@@ -95,150 +95,6 @@ const headerTitle = computed(() =>
   &::-webkit-scrollbar {
     width: 0;
     height: 0;
-  }
-}
-
-:deep(.weather-card) {
-  display: flex;
-  flex-direction: column;
-  // > .header {
-  //   display: flex;
-  //   align-content: space-between;
-  //   justify-content: space-between;
-
-  //   > .title {
-  //     font-size: 15pt;
-  //   }
-
-  //   > .img {
-  //     height: 100%;
-  //     display: flex;
-  //     align-items: center;
-  //   }
-  // }
-
-  > .temperature-info {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    > .image {
-      flex-grow: 1;
-    }
-
-    > .temperature {
-      font-size: 30pt;
-      font-weight: bold;
-      flex-grow: 1;
-      text-align: center;
-
-      &::after {
-        content: "°C";
-      }
-    }
-  }
-
-  > .weather-info {
-    padding: 10px;
-
-    > .info-row {
-      &:not(:first-child) {
-        margin-top: 15px;
-      }
-
-      display: flex;
-      justify-content: space-between;
-
-      > .wind-speed {
-        display: flex;
-        align-items: center;
-        > .img {
-          transform: rotate(90deg);
-        }
-
-        > .value {
-          margin-left: 10px;
-        }
-      }
-      > .pressure {
-        display: flex;
-        align-items: center;
-        > .value {
-          margin-left: 10px;
-        }
-      }
-    }
-  }
-}
-
-:deep(.settings-container) {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  > .header {
-    display: flex;
-    flex-grow: 0;
-    align-content: space-between;
-    justify-content: space-between;
-
-    > .title {
-      font-size: 15pt;
-    }
-
-    > .gear {
-      height: 100%;
-      display: flex;
-      align-items: center;
-    }
-  }
-
-  > .cities-container {
-    display: flex;
-    flex: 1 1 auto;
-    flex-direction: column;
-    overflow: auto;
-
-    &::-webkit-scrollbar {
-      width: 0;
-      height: 0;
-    }
-
-    > .data-row {
-      display: flex;
-      justify-content: space-between;
-      min-height: 30px;
-      background-color: lightgray;
-      margin-top: 16px;
-      padding: 4px 8px;
-
-      > .wrapper {
-        display: flex;
-        align-items: center;
-
-        > .burger {
-        }
-
-        > .title {
-          margin-left: 10px;
-        }
-      }
-    }
-  }
-
-  > .search-input {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 0;
-
-    > .input-wrapper {
-      display: flex;
-      > .input {
-        flex-grow: 1;
-      }
-    }
-    > .title {
-      font-size: 10pt;
-    }
   }
 }
 </style>

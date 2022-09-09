@@ -18,4 +18,25 @@ defineProps({
 defineEmits(["click:settings"]);
 </script>
 
-<style></style>
+<style scoped lang="scss">
+.temperature-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  > .image {
+    flex-grow: 1;
+  }
+
+  > .temperature {
+    font-size: 30pt;
+    font-weight: bold;
+    flex-grow: 1;
+    text-align: center;
+
+    &::after {
+      content: "°C";
+    }
+  }
+}
+</style>

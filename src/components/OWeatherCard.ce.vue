@@ -1,6 +1,6 @@
 <template>
   <div class="weather-card">
-    <h1 style="font-size: 15pt">{{ countryTitle }}</h1>
+    <h1 class="title">{{ countryTitle }}</h1>
     <MTemperatureInfo
       :weather-title="weatherTitle"
       :temperature="wholePartOfTemp"
@@ -19,8 +19,8 @@
 </template>
 
 <script lang="ts" setup>
-import MTemperatureInfo from "./MTemperatureInfo.vue";
-import MAdditionalWeatherInfo from "./MAdditionalWeatherInfo.vue";
+import MTemperatureInfo from "./MTemperatureInfo.ce.vue";
+import MAdditionalWeatherInfo from "./MAdditionalWeatherInfo.ce.vue";
 
 import mockData from "@/assets/mockWeather.json";
 import { computed, onMounted, ref, PropType } from "vue";
@@ -99,4 +99,13 @@ const handle = () => {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+.weather-card {
+  display: flex;
+  flex-direction: column;
+
+  > .title {
+    font-size: 15pt;
+  }
+}
+</style>

@@ -47,4 +47,36 @@ defineProps({
 });
 </script>
 
-<style></style>
+<style scoped lang="scss">
+.weather-info {
+  padding: 10px;
+
+  > .info-row {
+    &:not(:first-child) {
+      margin-top: 15px;
+    }
+
+    display: flex;
+    justify-content: space-between;
+
+    > .wind-speed {
+      display: flex;
+      align-items: center;
+      > .img {
+        transform: rotate(90deg);
+      }
+
+      > .value {
+        margin-left: 10px;
+      }
+    }
+    > .pressure {
+      display: flex;
+      align-items: center;
+      > .value {
+        margin-left: 10px;
+      }
+    }
+  }
+}
+</style>
