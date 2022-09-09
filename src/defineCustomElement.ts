@@ -16,7 +16,7 @@ const getNearestElementParent = (el: any) => {
   return el;
 };
 
-export const defineCustomElement = (component: any, { plugins = [] }) =>
+export const defineCustomElement = (component: any, { plugins = [] as any }) =>
   VueDefineCustomElement({
     render: () => h(component),
     setup() {
