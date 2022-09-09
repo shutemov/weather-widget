@@ -3,9 +3,8 @@
     <MWidgetHeader
       title="Settings"
       action-img="https://api.iconify.design/heroicons-outline:x.svg"
-      @click:icon="$emit('click:close')"
+      @click="$router.push({ name: Route.Home })"
     />
-
     <draggable
       v-model="cities"
       class="cities-container"
@@ -73,6 +72,7 @@ import { OPEN_WEATHER_API_KEY } from "@/constants";
 
 import { get, set } from "@/helpers/storage";
 import { EStorageKeys } from "@/types/storage";
+import { Route } from "@/router";
 
 export type TCity = {
   name: string;

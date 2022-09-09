@@ -1,45 +1,6 @@
 <template>
   <div class="main-app" style="position: relative">
-    <h1
-      v-if="!isSettingsOn && !cities.length"
-      style="font-size: 15pt; width: 80%"
-    >
-      Please select a city in the settings
-    </h1>
-    <img
-      v-if="!isSettingsOn"
-      src="https://api.iconify.design/typcn:cog-outline.svg"
-      width="30"
-      height="30"
-      style="position: absolute; top: 20px; right: 16px"
-      @click="isSettingsOn = !isSettingsOn"
-    />
-    <div
-      v-if="!isSettingsOn && !cities.length"
-      style="
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      "
-    >
-      <img
-        src="https://api.iconify.design/wi:day-haze.svg"
-        width="200"
-        height="200"
-        style=""
-        @click="isSettingsOn = !isSettingsOn"
-      />
-    </div>
-    <OSettings v-if="isSettingsOn" @click:close="isSettingsOn = false" />
-    <OWeatherCard
-      v-else
-      v-for="(item, index) in openWeatherData"
-      :key="index"
-      :city-data="item"
-      @click:settings="isSettingsOn = true"
-    />
+    <router-view></router-view>
   </div>
 </template>
 
@@ -89,7 +50,6 @@ const headerTitle = computed(() =>
   max-width: 350px;
   padding: 10px 16px;
   height: 450px;
-  overflow: scroll;
   font-family: "Courier New", Courier, monospace;
 
   &::-webkit-scrollbar {
