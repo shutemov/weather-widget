@@ -1,17 +1,13 @@
 <template>
   <div class="weather-card">
-    <MWeatherCardHeader
-      :title="countryTitle"
-      @click:icon="$emit('click:settings')"
-    />
+    <h1 style="font-size: 15pt">{{ countryTitle }}</h1>
     <MTemperatureInfo
       :weather-title="weatherTitle"
       :temperature="wholePartOfTemp"
       :icon-src="iconSrc"
     />
     <div class="description">
-      Feels like {{ feelsLikeTemp }}. {{ weatherTitle }}.
-      {{ capitalizedWeatherDescription }}.
+      Feels like {{ feelsLikeTemp }}. {{ capitalizedWeatherDescription }}.
     </div>
     <MAdditionalWeatherInfo
       :wind-speed="windSpeed"
@@ -23,12 +19,12 @@
 </template>
 
 <script lang="ts" setup>
-import MWeatherCardHeader from "./MWeatherCardHeader.vue";
 import MTemperatureInfo from "./MTemperatureInfo.vue";
 import MAdditionalWeatherInfo from "./MAdditionalWeatherInfo.vue";
 
 import mockData from "@/assets/mockWeather.json";
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, PropType } from "vue";
+import { TOpenWeatherSuccessRequest } from "@/types/openWeather";
 
 const feelsLikeTemp = ref(0);
 const temp = ref(0);
@@ -58,7 +54,7 @@ onMounted(() => {
     },
     wind: { speed: _speed, deg: _deg },
     visibility: _visibility,
-  } = mockData;
+  } = props.cityData ? props.cityData : mockData;
 
   city.value = name;
   country.value = _country;
@@ -72,6 +68,12 @@ onMounted(() => {
   windDeg.value = _deg;
   pressure.value = _pressure;
   visibility.value = _visibility;
+});
+
+const props = defineProps({
+  cityData: {
+    type: Object as PropType<TOpenWeatherSuccessRequest>,
+  },
 });
 
 defineEmits(["click:settings"]);
@@ -90,7 +92,7 @@ const visibilityM2Km = computed(() => visibility.value / 1000);
 
 const wholePartOfTemp = computed(() => Math.trunc(temp.value));
 
-const countryTitle = computed(() => city.value + " ," + country.value);
+const countryTitle = computed(() => city.value + ", " + country.value);
 
 const handle = () => {
   console.log("handle settings click");
