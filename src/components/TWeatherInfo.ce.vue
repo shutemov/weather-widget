@@ -42,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, Ref, ref } from "vue";
+import { onMounted, Ref, ref } from "vue";
 
 import OWeatherCard from "@/components/OWeatherCard.ce.vue";
 import OSettings, { TDataRow } from "@/components/OSettings.ce.vue";
@@ -55,17 +55,19 @@ import { TOpenWeatherSuccessRequest } from "@/types/openWeather";
 import { Route } from "@/router";
 
 const isSettingsOn = ref(false);
-const cities = ref([]);
+const cities: Ref<TDataRow[]> = ref([]);
 const openWeatherData: Ref<TOpenWeatherSuccessRequest[]> = ref([]);
 
 onMounted(async () => {
   const data = await get(EStorageKeys.cities);
   cities.value = data !== null ? JSON.parse(data) : [];
 
-  cities.value.forEach(async (city: TDataRow) => {
-    const cityWeather = await weather.getWeather(city.name);
-    openWeatherData.value.push(cityWeather);
-  });
+  (async () => {
+    for (const city of cities.value) {
+      const cityWeather = await weather.getWeather(city.name);
+      openWeatherData.value.push(cityWeather);
+    }
+  })();
 });
 </script>
 
