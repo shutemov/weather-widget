@@ -1,19 +1,19 @@
 <template>
   <div class="settings-container">
-    <MWeatherCardHeader
+    <MWidgetHeader
       title="Settings"
-      actionImg="https://api.iconify.design/heroicons-outline:x.svg"
+      action-img="https://api.iconify.design/heroicons-outline:x.svg"
       @click:icon="$emit('click:close')"
     />
 
     <draggable
-      class="cities-container"
       v-model="cities"
+      class="cities-container"
       group="people"
+      item-key="isoCode"
       @start="drag = true"
       @end="drag = false"
-      item-key="isoCode"
-      @change="handleDraggableChange"
+      @change="handleOrderChange"
     >
       <template #item="{ element }">
         <div class="data-row">
@@ -41,9 +41,9 @@
         <input
           v-model="cityQuery"
           class="input"
+          list="cityname"
           @keydown.enter="addItem"
           @input="debounceSuggestedCities"
-          list="cityname"
         />
         <datalist id="cityname">
           <option
@@ -63,7 +63,7 @@
 </template>
 
 <script setup lang="ts">
-import MWeatherCardHeader from "./MWeatherCardHeader.vue";
+import MWidgetHeader from "./MWidgetHeader.vue";
 
 import { onMounted, Ref, ref } from "vue";
 import { useDebounceFn } from "@vueuse/core";
@@ -74,12 +74,12 @@ import { OPEN_WEATHER_API_KEY } from "@/constants";
 import { get, set } from "@/helpers/storage";
 import { EStorageKeys } from "@/types/storage";
 
-type TCity = {
+export type TCity = {
   name: string;
   isoCode: string;
 };
 
-type TDataRow = {
+export type TDataRow = {
   id?: number;
   name: string;
 };
@@ -104,17 +104,15 @@ const addItem = async () => {
       name: cityQuery.value,
     });
 
-    await set({
-      key: EStorageKeys.cities,
-      value: JSON.stringify(cities.value),
-    });
+    await updateLocalStorage();
 
     cityQuery.value = "";
   }
 };
 
-const deleteItem = (id: number) => {
+const deleteItem = async (id: number) => {
   cities.value = cities.value.filter((item) => item.id !== id);
+  await updateLocalStorage();
 };
 
 const debounceSuggestedCities = useDebounceFn(async () => {
@@ -171,10 +169,12 @@ const distinctCitiesByIsoCode = (cities: TCity[]) => {
   });
 };
 
-const handleDraggableChange = async () => {
-  console.log(cities.value);
-  await set({ key: EStorageKeys.cities, value: JSON.stringify(cities.value) });
+const handleOrderChange = async () => {
+  await updateLocalStorage();
 };
+
+const updateLocalStorage = async () =>
+  await set({ key: EStorageKeys.cities, value: JSON.stringify(cities.value) });
 </script>
 
 <style scoped lang="scss"></style>
