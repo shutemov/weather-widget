@@ -24,11 +24,8 @@
     </div>
     <div class="info-row">
       <div class="humidity">Humidity: {{ humidity }}%</div>
-      <!-- <div class="dew-point">
-          <span class="value">Dew point: 111 °C</span>
-        </div> -->
+      <div class="visibility">Visibility: {{ visibility }}km</div>
     </div>
-    <div class="info-row">Visibility: {{ visibility }}km</div>
   </div>
 </template>
 
