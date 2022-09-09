@@ -1,22 +1,77 @@
 <template>
-  <div class="main-app">
+  <div class="main-app" style="position: relative">
+    <h1
+      v-if="!isSettingsOn && !cities.length"
+      style="font-size: 15pt; width: 80%"
+    >
+      Please select a city in the settings
+    </h1>
+    <img
+      v-if="!isSettingsOn"
+      src="https://api.iconify.design/typcn:cog-outline.svg"
+      width="30"
+      height="30"
+      style="position: absolute; top: 20px; right: 16px"
+      @click="isSettingsOn = !isSettingsOn"
+    />
+    <div
+      v-if="!isSettingsOn && !cities.length"
+      style="
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <img
+        src="https://api.iconify.design/wi:day-haze.svg"
+        width="200"
+        height="200"
+        style=""
+        @click="isSettingsOn = !isSettingsOn"
+      />
+    </div>
     <OSettings v-if="isSettingsOn" @click:close="isSettingsOn = false" />
-    <OWeatherCard v-else @click:settings="isSettingsOn = true" />
+    <OWeatherCard
+      v-else
+      v-for="(item, index) in openWeatherData"
+      :key="index"
+      :city-data="item"
+      @click:settings="isSettingsOn = true"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
-import OWeatherCard from "./components/OWeatherCard.vue";
-import OSettings from "./components/OSettings.vue";
+import { computed, onMounted, Ref, ref } from "vue";
 
-import { OPEN_WEATHER_API_KEY } from "@/constants";
+import OWeatherCard from "@/components/OWeatherCard.vue";
+import OSettings, { TDataRow } from "@/components/OSettings.vue";
+import MWidgetHeader from "@/components/MWidgetHeader.vue";
+
+import { get } from "@/helpers/storage";
+import { EStorageKeys } from "@/types/storage";
+import weather from "@/services/weather";
+import { TOpenWeatherSuccessRequest } from "./types/openWeather";
 
 const isSettingsOn = ref(false);
+const cities = ref([]);
+const openWeatherData: Ref<TOpenWeatherSuccessRequest[]> = ref([]);
 
 onMounted(async () => {
-  console.log(OPEN_WEATHER_API_KEY);
+  const data = await get(EStorageKeys.cities);
+  cities.value = data !== null ? JSON.parse(data) : [];
+
+  cities.value.forEach(async (city: TDataRow) => {
+    const cityWeather = await weather.getWeather(city.name);
+    openWeatherData.value.push(cityWeather);
+  });
 });
+
+const headerTitle = computed(() =>
+  cities.value.length ? (cities.value[0] as TDataRow).name : ""
+);
 </script>
 
 <style scoped lang="scss">
@@ -33,28 +88,34 @@ onMounted(async () => {
   min-width: 200px;
   max-width: 350px;
   padding: 10px 16px;
-  height: 500px;
+  height: 450px;
+  overflow: scroll;
   font-family: "Courier New", Courier, monospace;
+
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
 }
 
 :deep(.weather-card) {
   display: flex;
   flex-direction: column;
-  > .header {
-    display: flex;
-    align-content: space-between;
-    justify-content: space-between;
+  // > .header {
+  //   display: flex;
+  //   align-content: space-between;
+  //   justify-content: space-between;
 
-    > .title {
-      font-size: 15pt;
-    }
+  //   > .title {
+  //     font-size: 15pt;
+  //   }
 
-    > .gear {
-      height: 100%;
-      display: flex;
-      align-items: center;
-    }
-  }
+  //   > .img {
+  //     height: 100%;
+  //     display: flex;
+  //     align-items: center;
+  //   }
+  // }
 
   > .temperature-info {
     display: flex;
