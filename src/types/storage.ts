@@ -1,3 +1,3 @@
 export enum EStorageKeys {
-  cities = "cities",
+  Cities = "cities",
 }
