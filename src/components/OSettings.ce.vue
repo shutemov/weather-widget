@@ -9,7 +9,6 @@
       v-model="cities"
       class="cities-container"
       group="people"
-      item-key="isoCode"
       @start="drag = true"
       @end="drag = false"
       @change="handleOrderChange"
@@ -62,8 +61,6 @@
 </template>
 
 <script setup lang="ts">
-import MWidgetHeader from "./MWidgetHeader.ce.vue";
-
 import { onMounted, Ref, ref } from "vue";
 import { useDebounceFn } from "@vueuse/core";
 import draggable from "vuedraggable";
@@ -91,10 +88,10 @@ onMounted(async () => {
 });
 
 const addItem = async () => {
-  if (isValidQuery()) {
+  if (isValidQuery() && !isDuplicate()) {
     cities.value.push({
       id: cities.value.length + 1,
-      name: cityQuery.value,
+      name: normalizeString(cityQuery.value),
     });
 
     await updateLocalStorage();
@@ -117,10 +114,7 @@ const getSuggestedCities = async () => {
 
   const normalizedQueryString = normalizeString(cityQuery.value);
 
-  const res = await fetch(
-    `https://api.openweathermap.org/geo/1.0/direct?q=${normalizedQueryString}&limit=5&appid=${OPEN_WEATHER_API_KEY}`
-  );
-  const data = await res.json();
+  const data = await openWeatherService.getCity(normalizedQueryString);
 
   suggestedCities.value = distinctCitiesByIsoCode(data).map(
     ({ name, country: isoCode }: any) => ({
@@ -134,8 +128,9 @@ const isValidQuery = () => {
   const preparedQueryString = normalizeString(cityQuery.value);
 
   const isQueryValid = !!suggestedCities.value.find((country) => {
-    const targetString = `${country.name}, ${country.isoCode}`;
-    const normalizedString = normalizeString(targetString);
+    const normalizedString = normalizeString(
+      `${country.name}, ${country.isoCode}`
+    );
 
     return preparedQueryString === normalizedString;
   });
@@ -143,8 +138,13 @@ const isValidQuery = () => {
   return isQueryValid;
 };
 
+const isDuplicate = () => {
+  return !!cities.value.find(
+    ({ name }) => name === normalizeString(cityQuery.value)
+  );
+};
+
 const normalizeString = (str: string) =>
-  str.replace(/\s/g, "").toLowerCase().trim();
   str
     .split(",")
     .map((item) => item.trim())
@@ -158,7 +158,6 @@ const distinctCitiesByIsoCode = (cities: TCity[]) => {
 
     if (!isDuplicate) {
       uniqueIsoCode.push(country.country);
-
       return true;
     }
 
