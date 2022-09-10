@@ -1,9 +1,5 @@
 <template>
-  <div class="main-app" style="position: relative">
-    <div>
-      <slot name="test" />
-    </div>
-
+  <div class="main-app">
     <router-view></router-view>
   </div>
 </template>
