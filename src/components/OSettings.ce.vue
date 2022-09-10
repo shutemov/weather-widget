@@ -93,7 +93,7 @@ const drag = ref(false);
 defineEmits(["click:close"]);
 
 onMounted(async () => {
-  const data = await get(EStorageKeys.Cities);
+  const data = await get(EStorageKeys.cities);
   cities.value = data !== null ? JSON.parse(data) : [];
 });
 
@@ -175,7 +175,6 @@ const handleOrderChange = async () => {
 
 const updateLocalStorage = async () =>
   await set({ key: EStorageKeys.cities, value: JSON.stringify(cities.value) });
-await set({ key: EStorageKeys.Cities, value: JSON.stringify(cities.value) });
 </script>
 
 <style scoped lang="scss">

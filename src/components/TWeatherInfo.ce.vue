@@ -61,7 +61,7 @@ const cities: Ref<TDataRow[]> = ref([]);
 const openWeatherData: Ref<TOpenWeatherSuccessRequest[]> = ref([]);
 
 onMounted(async () => {
-  const data = await get(EStorageKeys.Cities);
+  const data = await get(EStorageKeys.cities);
   cities.value = data !== null ? JSON.parse(data) : [];
 
   (async () => {
