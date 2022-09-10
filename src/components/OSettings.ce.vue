@@ -145,6 +145,10 @@ const isValidQuery = () => {
 
 const normalizeString = (str: string) =>
   str.replace(/\s/g, "").toLowerCase().trim();
+  str
+    .split(",")
+    .map((item) => item.trim())
+    .join(",");
 
 const distinctCitiesByIsoCode = (cities: TCity[]) => {
   const uniqueIsoCode: string[] = [];
