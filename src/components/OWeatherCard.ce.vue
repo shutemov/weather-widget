@@ -11,6 +11,7 @@
     </div>
     <MAdditionalWeatherInfo
       :wind-speed="windSpeed"
+      :wind-deg="windDeg"
       :pressure="pressure"
       :humidity="humidity"
       :visibility="visibilityM2Km"
