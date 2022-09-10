@@ -1,3 +1,4 @@
 export enum EStorageKeys {
-  cities = "cities",
+  Cities = "cities",
+  WidgetPrefix = "weather-widget",
 }
