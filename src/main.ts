@@ -1,6 +1,6 @@
-import { defineCustomElement } from "./defineCustomElement";
+import { defineCustomElement } from "./defineCustomElement.js";
 
-import App from "./VueApp.ce.vue";
+import App from "./App.ce.vue";
 import router from "./router";
 
 const webComponentName = "weather-widget";
