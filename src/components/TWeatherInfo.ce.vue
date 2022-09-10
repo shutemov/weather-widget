@@ -53,6 +53,8 @@ import MWidgetHeader from "@/components/MWidgetHeader.ce.vue";
 import { get } from "@/helpers/storage";
 import { EStorageKeys } from "@/types/storage";
 import weather from "@/services/weather";
+import { EStorageKeys } from "@/types/types";
+import openWeatherService from "@/services/openWeatherService";
 import { TOpenWeatherSuccessRequest } from "@/types/openWeather";
 import { Route } from "@/router";
 
@@ -67,6 +69,7 @@ onMounted(async () => {
   (async () => {
     for (const city of cities.value) {
       const cityWeather = await weather.getWeather(city.name);
+      const cityWeather = await openWeatherService.getWeather(city.name);
       openWeatherData.value.push(cityWeather);
     }
   })();
