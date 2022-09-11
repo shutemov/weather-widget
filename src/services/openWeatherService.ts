@@ -1,4 +1,7 @@
-import { TOpenWeatherSuccessRequest } from "@/types/openWeather";
+import {
+  TOpenWeatherGeoSuccessRequest,
+  TOpenWeatherSuccessRequest,
+} from "@/types/openWeather";
 
 import apiService from "@/services/apiService";
 import { TCity } from "@/types/types";
@@ -29,13 +32,14 @@ export default {
 
     return data;
   },
-  async getCity(query: string): Promise<TCity[]> {
+  async getCity(query: string): Promise<TOpenWeatherGeoSuccessRequest[]> {
     const res = await fetch(apiService.getCity(query));
     const data = await res.json();
 
     if (!res.ok) {
       throw data;
     }
+    console.log("sss", data);
 
     return data;
   },

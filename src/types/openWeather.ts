@@ -46,3 +46,12 @@ export type TOpenWeatherError = {
   code: string;
   message: string;
 };
+
+export type TOpenWeatherGeoSuccessRequest = {
+  name: string;
+  local_names: { [key: string]: string };
+  lat: number;
+  lon: number;
+  country: string;
+  state: string;
+};
