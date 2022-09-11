@@ -1,7 +1,6 @@
 <template>
-  <div>
+  <div class="empty-state-container">
     <MWidgetHeader
-      :title="emptyStateHeader"
       action-img="https://api.iconify.design/typcn:cog-outline.svg"
       @click:icon="$router.push({ name: Route.Settings })"
     />
@@ -12,7 +11,10 @@
         width="200"
         height="200"
       />
-      <h2 class="subtitle">The problem with getting your geolocation</h2>
+      <h2 class="subtitle">
+        There is a problem with getting your geolocation. Please select a city
+        in the settings
+      </h2>
     </div>
   </div>
 </template>
@@ -24,7 +26,6 @@ import { useRouter } from "vue-router";
 import MWidgetHeader from "@/components/MWidgetHeader.ce.vue";
 import { Route } from "@/router";
 
-const emptyStateHeader = ref("Please select a city in the settings");
 let timer: number;
 
 const router = useRouter();
@@ -53,16 +54,28 @@ onUnmounted(() => {
 </script>
 
 <style scoped lang="scss">
-.empty-state-content {
-  width: 100%;
+.empty-state-container {
   height: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
+  > .empty-state-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 
-  > .subtitle {
-    text-align: center;
+    > .subtitle {
+      text-align: center;
+      font-size: 12pt;
+      color: #888;
+    }
+
+    > .img {
+      filter: invert(52%) sepia(45%) saturate(13%) hue-rotate(59deg)
+        brightness(95%) contrast(91%);
+    }
   }
 }
 </style>
