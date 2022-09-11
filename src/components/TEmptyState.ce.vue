@@ -18,6 +18,15 @@
 </template>
 
 <script lang="ts" setup>
+import { onMounted, onUnmounted, ref } from "vue";
+import MWidgetHeader from "@/components/MWidgetHeader.ce.vue";
+import { Route } from "@/router";
+import { useRouter } from "vue-router";
+
+const emptyStateHeader = ref("Please select a city in the settings");
+let timer: number;
+
+const router = useRouter();
 </script>
 <style scoped lang="scss">
 </style>
