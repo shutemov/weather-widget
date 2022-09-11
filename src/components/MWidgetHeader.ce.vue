@@ -1,9 +1,8 @@
 <template>
   <div class="header">
     <h1 class="title">{{ title }}</h1>
-    <div class="img" style="height: 100%; display: flex; align-items: center">
+    <div class="img" v-if="actionImg">
       <img
-        v-if="actionImg"
         class="image"
         alt="Settings"
         :width="actionImgSize"
