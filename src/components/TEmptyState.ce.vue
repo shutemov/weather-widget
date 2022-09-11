@@ -27,6 +27,31 @@ const emptyStateHeader = ref("Please select a city in the settings");
 let timer: number;
 
 const router = useRouter();
+
+onMounted(async () => {
+  navigator.geolocation.getCurrentPosition(
+    () => {
+      router.push({ name: Route.Home });
+    },
+    () => {
+      timer = setInterval(() => {
+        navigator.permissions
+          .query({ name: "geolocation" })
+          .then((permissionStatus) => {
+            if (permissionStatus.state !== "denied")
+              router.push({ name: Route.Home });
+            permissionStatus.onchange = () => {
+              console.log("test", permissionStatus.state);
+            };
+          });
+      }, 2000);
+    }
+  );
+});
+
+onUnmounted(() => {
+  clearInterval(timer);
+});
 </script>
 <style scoped lang="scss">
 </style>
