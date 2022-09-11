@@ -47,7 +47,7 @@
           <option
             v-for="(country, index) in suggestedCities"
             :key="index"
-            :value="`${country.name}, ${country.isoCode}`"
+            :value="`${setWhiteSpaceBeforeCountry(country.name)}`"
           ></option>
         </datalist>
         <img
@@ -71,12 +71,11 @@ import MWidgetHeader from "@/components/MWidgetHeader.ce.vue";
 
 import openWeatherService from "@/services/openWeatherService";
 import { get, set } from "@/helpers/storage";
-import { EStorageKeys } from "@/types/types";
+import { EStorageKeys, TDataRow } from "@/types/types";
 import { Route } from "@/router";
-import { TCity, TDataRow } from "@/types/types";
 
 const cities: Ref<TDataRow[]> = ref([]);
-const suggestedCities: Ref<TCity[]> = ref([]);
+const suggestedCities: Ref<TDataRow[]> = ref([]);
 const cityQuery = ref("");
 
 const drag = ref(false);
@@ -90,10 +89,7 @@ onMounted(async () => {
 
 const addItem = async () => {
   if (isValidQuery() && !isDuplicate()) {
-    cities.value.push({
-      id: cities.value.length + 1,
-      name: normalizeString(cityQuery.value),
-    });
+    cities.value.push({ name: normalizeString(cityQuery.value) });
 
     await updateLocalStorage();
 
@@ -101,8 +97,8 @@ const addItem = async () => {
   }
 };
 
-const deleteItem = async (name: string) => {
-  cities.value = cities.value.filter((item) => item.name !== name);
+const deleteItem = async (_name: string) => {
+  cities.value = cities.value.filter(({ name }) => _name !== name);
   await updateLocalStorage();
 };
 
@@ -117,21 +113,18 @@ const getSuggestedCities = async () => {
 
   const data = await openWeatherService.getCity(normalizedQueryString);
 
-  suggestedCities.value = distinctCitiesByIsoCode(data).map(
-    ({ name, country: isoCode }: any) => ({
-      name,
-      isoCode,
-    })
-  );
+  const modifiedData: TDataRow[] = data.map(({ name, country }) => {
+    return { name: `${name},${country}` };
+  });
+
+  suggestedCities.value = distinctCities(modifiedData);
 };
 
 const isValidQuery = () => {
   const preparedQueryString = normalizeString(cityQuery.value);
 
   const isQueryValid = !!suggestedCities.value.find((country) => {
-    const normalizedString = normalizeString(
-      `${country.name}, ${country.isoCode}`
-    );
+    const normalizedString = normalizeString(country.name);
 
     return preparedQueryString === normalizedString;
   });
@@ -151,14 +144,14 @@ const normalizeString = (str: string) =>
     .map((item) => item.trim())
     .join(",");
 
-const distinctCitiesByIsoCode = (cities: TCity[]) => {
+const distinctCities = (cities: TDataRow[]) => {
   const uniqueIsoCode: string[] = [];
 
-  return cities.filter((country: any) => {
-    const isDuplicate = uniqueIsoCode.includes(country.country);
+  return cities.filter(({ name }) => {
+    const isDuplicate = uniqueIsoCode.includes(name);
 
     if (!isDuplicate) {
-      uniqueIsoCode.push(country.country);
+      uniqueIsoCode.push(name);
       return true;
     }
 
