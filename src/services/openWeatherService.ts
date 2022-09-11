@@ -39,7 +39,6 @@ export default {
     if (!res.ok) {
       throw data;
     }
-    console.log("sss", data);
 
     return data;
   },
