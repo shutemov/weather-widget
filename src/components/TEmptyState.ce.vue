@@ -12,45 +12,42 @@
         height="200"
       />
       <h2 class="subtitle">
-        There is a problem with getting your geolocation. Please select a city
-        in the settings
+        To work better, we need your permission to use geolocation, please
+        activate it in the upper right corner or by clicking button
       </h2>
+      <button class="button" @click="handlePermission">I allowed it</button>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { onMounted, onUnmounted, ref } from "vue";
 import { useRouter } from "vue-router";
 
 import MWidgetHeader from "@/components/MWidgetHeader.ce.vue";
 import { Route } from "@/router";
 
-let timer: number;
-
 const router = useRouter();
 
-onMounted(async () => {
-  navigator.geolocation.getCurrentPosition(
-    () => {
-      router.push({ name: Route.Home });
-    },
-    () => {
-      timer = setInterval(() => {
-        navigator.permissions
-          .query({ name: "geolocation" })
-          .then((permissionStatus) => {
-            if (permissionStatus.state !== "denied")
-              router.push({ name: Route.Home });
-          });
-      }, 2000);
-    }
-  );
-});
+const handlePermission = () => {
+  navigator.geolocation.getCurrentPosition(successCb, errorCb);
+};
 
-onUnmounted(() => {
-  clearInterval(timer);
-});
+const successCb = () => {
+  router.push({ name: Route.Home });
+};
+
+const errorCb = () => {
+  navigator.permissions
+    .query({ name: "geolocation" })
+    .then((permissionStatus) => {
+      if (
+        permissionStatus.state === "denied" ||
+        permissionStatus.state === "prompt"
+      )
+        return;
+      router.push({ name: Route.Home });
+    });
+};
 </script>
 
 <style scoped lang="scss">
