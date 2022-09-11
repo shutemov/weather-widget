@@ -53,5 +53,18 @@ onUnmounted(() => {
   clearInterval(timer);
 });
 </script>
+
 <style scoped lang="scss">
+.empty-state-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  > .subtitle {
+    text-align: center;
+  }
+}
 </style>
