@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --dest docs --mode production",
+    "build": "vue-cli-service build --dest dist --mode production",
     "build:wc": "vue-cli-service build --dest wc --target wc --name weather-widget",
     "lint": "vue-cli-service lint"
   },
