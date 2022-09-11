@@ -1,11 +1,18 @@
 <template>
   <div class="template-wrapper">
     <img
-      src="https://api.iconify.design/typcn:cog-outline.svg"
+      src="https://api.iconify.design/fxemoji:wrench.svg"
       width="30"
       height="30"
       class="cog"
       @click="$router.push({ name: Route.Settings })"
+    />
+    <img
+      src="https://api.iconify.design/heroicons-outline:refresh.svg"
+      width="30"
+      height="30"
+      class="update"
+      @click="handleUpdate"
     />
     <OWeatherCard
       v-for="(item, index) in openWeatherData"
@@ -88,6 +95,17 @@ const getWeatherForAllCities = async () => {
     }
   }
 };
+
+const handleUpdate = async () => {
+  openWeatherData.value = [];
+
+  if (!cities.value.length) {
+    handleEmptyState();
+    return;
+  }
+
+  await getWeatherForAllCities();
+};
 </script>
 
 <style scoped lang="scss">
@@ -98,6 +116,12 @@ const getWeatherForAllCities = async () => {
     position: absolute;
     top: 12px;
     right: 0px;
+  }
+
+  > .update {
+    position: absolute;
+    top: 12px;
+    right: 40px;
   }
 }
 </style>
