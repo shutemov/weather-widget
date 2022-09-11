@@ -33,6 +33,7 @@ defineEmits(["click:icon"]);
   flex-grow: 0;
   align-content: space-between;
   justify-content: space-between;
+  min-height: 50px;
 
   > .title {
     font-size: 15pt;
