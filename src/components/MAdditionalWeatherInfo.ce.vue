@@ -110,7 +110,7 @@ const windDirection = computed(() => {
 
 <style scoped lang="scss">
 .weather-info {
-  padding: 10px;
+  padding: 10px 0;
 
   > .info-row {
     &:not(:first-child) {
