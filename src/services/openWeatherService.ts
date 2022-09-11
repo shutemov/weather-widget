@@ -4,7 +4,6 @@ import {
 } from "@/types/openWeather";
 
 import apiService from "@/services/apiService";
-import { TCity } from "@/types/types";
 
 export default {
   async getWeatherByCityAndCountry(
