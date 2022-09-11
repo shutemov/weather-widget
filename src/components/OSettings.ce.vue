@@ -23,7 +23,7 @@
               src="https://api.iconify.design/mdi-light:format-line-spacing.svg"
             />
             <span class="title">
-              {{ element.name }}
+              {{ setWhiteSpaceBeforeCountry(element.name) }}
             </span>
           </div>
           <img
@@ -172,6 +172,12 @@ const handleOrderChange = async () => {
 
 const updateLocalStorage = async () =>
   await set({ key: EStorageKeys.Cities, value: JSON.stringify(cities.value) });
+
+const setWhiteSpaceBeforeCountry = (str: string) => {
+  const city = str.split(",");
+  city[1] = " " + city[1];
+  return city.join(",");
+};
 </script>
 
 <style scoped lang="scss">
