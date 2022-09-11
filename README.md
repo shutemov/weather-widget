@@ -2,6 +2,8 @@
 Meet the weather-widget as a web component for your application based on Vue 3.  
 Just add <weather-widget /> as an html tag and upload the script:
 
+Current link to the app.js: [https://cdn.jsdelivr.net/gh/shutemov/weather-widget/dist/js/app.ad7efd3c.js](https://cdn.jsdelivr.net/gh/shutemov/weather-widget/dist/js/app.ad7efd3c.js)  
+
 ```
 <!DOCTYPE html>
 <html lang="en">
@@ -13,20 +15,25 @@ Just add <weather-widget /> as an html tag and upload the script:
 </head>
 <body>
     <weather-widget />
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/shutemov/weather-widget/dist/js/app.8a673c22.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/shutemov/weather-widget/dist/js/app.ad7efd3c.js"></script>
 </body>
 </html>
 ```
 
-### Features:
+### ✨ Features:
 + Saves the state between site visits
 + Interact with the geolocation (waiting for switching permissions, shows the empty state of the application)
 + Uses data from [https://openweathermap.org/](https://openweathermap.org/)
 + Uses vue-router to control the application
 
-### Current restrictions:
+### 🚧 Current restrictions:
 + 1 widget per site
 + There is no support for props
+
+### 🐞 Bug
+
+There is a bug with the geo-location that I can't track in the allotted time.  
+When trying to use a component in an html _file_, navigator.geolocation.getCurrentPosition calls prompt every time it is called, while on github pages and with local serve everything works as expected.
 
 You can see how the widget works here: [https://shutemov.github.io/weather-widget/](https://shutemov.github.io/weather-widget/)
 
