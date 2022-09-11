@@ -1,4 +1,4 @@
-import { OPEN_WEATHER_API_KEY } from "../constants";
+import { OPEN_WEATHER_API_KEY } from "@/constants";
 
 export default {
   getWeatherByCityAndCountry(query: string): string {

@@ -19,9 +19,10 @@
 
 <script lang="ts" setup>
 import { onMounted, onUnmounted, ref } from "vue";
+import { useRouter } from "vue-router";
+
 import MWidgetHeader from "@/components/MWidgetHeader.ce.vue";
 import { Route } from "@/router";
-import { useRouter } from "vue-router";
 
 const emptyStateHeader = ref("Please select a city in the settings");
 let timer: number;

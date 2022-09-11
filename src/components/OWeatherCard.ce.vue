@@ -91,10 +91,6 @@ const visibilityM2Km = computed(() => visibility.value / 1000);
 const wholePartOfTemp = computed(() => Math.trunc(temp.value));
 
 const countryTitle = computed(() => city.value + ", " + country.value);
-
-const handle = () => {
-  console.log("handle settings click");
-};
 </script>
 
 <style lang="scss" scoped>

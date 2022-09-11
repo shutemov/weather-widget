@@ -65,13 +65,12 @@ import { onMounted, Ref, ref } from "vue";
 import { useDebounceFn } from "@vueuse/core";
 import draggable from "vuedraggable";
 
-import MWidgetHeader from "./MWidgetHeader.ce.vue";
+import MWidgetHeader from "@/components/MWidgetHeader.ce.vue";
 
 import openWeatherService from "@/services/openWeatherService";
 import { get, set } from "@/helpers/storage";
 import { EStorageKeys } from "@/types/types";
 import { Route } from "@/router";
-import { OPEN_WEATHER_API_KEY } from "@/constants";
 import { TCity, TDataRow } from "@/types/types";
 
 const cities: Ref<TDataRow[]> = ref([]);

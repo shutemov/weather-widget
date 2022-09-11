@@ -11,25 +11,23 @@
       v-for="(item, index) in openWeatherData"
       :key="index"
       :city-data="item"
-      @click:settings="isSettingsOn = true"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, Ref, ref } from "vue";
+import { onMounted, Ref, ref } from "vue";
 import { useRouter } from "vue-router";
 
 import OWeatherCard from "@/components/OWeatherCard.ce.vue";
-import OSettings, { TDataRow } from "@/components/OSettings.ce.vue";
+import OSettings from "@/components/OSettings.ce.vue";
 
 import { get } from "@/helpers/storage";
-import { EStorageKeys } from "@/types/types";
+import { EStorageKeys, TDataRow } from "@/types/types";
 import { TOpenWeatherSuccessRequest } from "@/types/openWeather";
 import { Route } from "@/router";
 import openWeatherService from "@/services/openWeatherService";
 
-const isSettingsOn = ref(false);
 const cities: Ref<TDataRow[]> = ref([]);
 const openWeatherData: Ref<TOpenWeatherSuccessRequest[]> = ref([]);
 
