@@ -7,18 +7,36 @@ export default {
   async getWeatherByCityAndCountry(
     query: string
   ): Promise<TOpenWeatherSuccessRequest> {
-    const data = await fetch(apiService.getWeatherByCityAndCountry(query));
-    return await data.json();
+    const res = await fetch(apiService.getWeatherByCityAndCountry(query));
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw data;
+    }
+
+    return data;
   },
   async getWeatherByLatAndLon(
     lat: number,
     lon: number
   ): Promise<TOpenWeatherSuccessRequest> {
-    const data = await fetch(apiService.getWeatherByLatAndLon(lat, lon));
-    return await data.json();
+    const res = await fetch(apiService.getWeatherByLatAndLon(lat, lon));
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw data;
+    }
+
+    return data;
   },
   async getCity(query: string): Promise<TCity[]> {
-    const data = await fetch(apiService.getCity(query));
-    return await data.json();
+    const res = await fetch(apiService.getCity(query));
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw data;
+    }
+
+    return data;
   },
 };
