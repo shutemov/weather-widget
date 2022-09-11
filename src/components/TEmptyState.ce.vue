@@ -1,7 +1,7 @@
 <template>
   <div class="empty-state-container">
     <MWidgetHeader
-      action-img="https://api.iconify.design/typcn:cog-outline.svg"
+      action-img="https://api.iconify.design/fxemoji:wrench.svg"
       @click:icon="$router.push({ name: Route.Settings })"
     />
     <div class="empty-state-content">
