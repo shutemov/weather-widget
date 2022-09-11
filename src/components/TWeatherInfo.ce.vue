@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, Ref, ref } from "vue";
+import { onMounted, Ref, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 
 import OWeatherCard from "@/components/OWeatherCard.ce.vue";
@@ -24,7 +24,10 @@ import OSettings from "@/components/OSettings.ce.vue";
 
 import { get } from "@/helpers/storage";
 import { EStorageKeys, TDataRow } from "@/types/types";
-import { TOpenWeatherSuccessRequest } from "@/types/openWeather";
+import {
+  TOpenWeatherError,
+  TOpenWeatherSuccessRequest,
+} from "@/types/openWeather";
 import { Route } from "@/router";
 import openWeatherService from "@/services/openWeatherService";
 
@@ -38,31 +41,53 @@ onMounted(async () => {
   cities.value = data !== null ? JSON.parse(data) : [];
 
   if (!cities.value.length) {
-    navigator.geolocation.getCurrentPosition(
-      async (geoLocationPosition) => {
-        const { latitude, longitude } = geoLocationPosition.coords;
-        const weather = await openWeatherService.getWeatherByLatAndLon(
-          latitude,
-          longitude
-        );
-        openWeatherData.value.push(weather);
-      },
-      (data) => {
-        console.log("error", data);
-        router.push({ name: Route.HomeEmpty });
-      }
-    );
+    handleEmptyState();
+    return;
   }
 
-  (async () => {
-    for (const { name } of cities.value) {
+  await getWeatherForAllCities();
+});
+
+const handleEmptyState = () => {
+  navigator.geolocation.getCurrentPosition(
+    async (geoLocationPosition) => {
+      const { latitude, longitude } = geoLocationPosition.coords;
+      const weather = await openWeatherService.getWeatherByLatAndLon(
+        latitude,
+        longitude
+      );
+      openWeatherData.value.push(weather);
+    },
+    () => {
+      router.push({ name: Route.HomeEmpty });
+    }
+  );
+};
+
+const getWeatherForAllCities = async () => {
+  for (const { name } of cities.value) {
+    try {
       const cityWeather = await openWeatherService.getWeatherByCityAndCountry(
         name
       );
       openWeatherData.value.push(cityWeather);
+    } catch (error) {
+      const err = error as TOpenWeatherError;
+
+      if (err.message === "city not found") {
+        alert(`We can't get weather data in: ${name}`);
+      }
+
+      cities.value = cities.value.filter((item) => item.name !== name);
+
+      if (!cities.value.length) {
+        handleEmptyState();
+      }
+
+      continue;
     }
-  })();
-});
+  }
+};
 </script>
 
 <style scoped lang="scss">
