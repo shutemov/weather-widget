@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, Ref, ref, watch } from "vue";
+import { onMounted, Ref, ref } from "vue";
 import { useRouter } from "vue-router";
 
 import OWeatherCard from "@/components/OWeatherCard.ce.vue";
@@ -55,18 +55,25 @@ onMounted(async () => {
   await getWeatherForAllCities();
 });
 
-const handleEmptyState = () => {
-  navigator.geolocation.getCurrentPosition(
-    async (geoLocationPosition) => {
-      const { latitude, longitude } = geoLocationPosition.coords;
-      const weather = await openWeatherService.getWeatherByLatAndLon(
-        latitude,
-        longitude
+const handleEmptyState = async () => {
+  await navigator.permissions.query({ name: "geolocation" }).then(
+    async () => {
+      navigator.geolocation.getCurrentPosition(
+        async (geoLocationPosition) => {
+          const { latitude, longitude } = geoLocationPosition.coords;
+          const weather = await openWeatherService.getWeatherByLatAndLon(
+            latitude,
+            longitude
+          );
+          openWeatherData.value.push(weather);
+        },
+        () => {
+          router.push({ name: Route.HomeEmpty });
+        }
       );
-      openWeatherData.value.push(weather);
     },
-    () => {
-      router.push({ name: Route.HomeEmpty });
+    (err) => {
+      console.error("err", err);
     }
   );
 };
