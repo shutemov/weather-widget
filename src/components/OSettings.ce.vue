@@ -28,7 +28,7 @@
           </div>
           <img
             src="https://api.iconify.design/mdi-light:delete.svg"
-            @click="deleteItem(element.id)"
+            @click="deleteItem(element.name)"
           />
         </div>
       </template>
@@ -101,8 +101,8 @@ const addItem = async () => {
   }
 };
 
-const deleteItem = async (id: number) => {
-  cities.value = cities.value.filter((item) => item.id !== id);
+const deleteItem = async (name: string) => {
+  cities.value = cities.value.filter((item) => item.name !== name);
   await updateLocalStorage();
 };
 
