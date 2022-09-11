@@ -62,6 +62,10 @@ const errorCb = () => {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    > .img {
+      filter: invert(52%) sepia(45%) saturate(13%) hue-rotate(59deg)
+        brightness(95%) contrast(91%);
+    }
 
     > .subtitle {
       text-align: center;
@@ -69,9 +73,15 @@ const errorCb = () => {
       color: #888;
     }
 
-    > .img {
-      filter: invert(52%) sepia(45%) saturate(13%) hue-rotate(59deg)
-        brightness(95%) contrast(91%);
+    > .button {
+      background-color: lightblue;
+      color: white;
+      border: none;
+      height: 40px;
+      border-radius: 5px;
+      font-size: 12pt;
+      padding: 0 8px;
+      margin-top: 5px;
     }
   }
 }
