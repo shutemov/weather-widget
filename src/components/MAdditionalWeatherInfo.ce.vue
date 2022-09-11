@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue-demi";
+import { computed } from "vue";
 
 const props = defineProps({
   weatherInfoImgSize: { type: Number, default: 35 },
@@ -67,6 +67,7 @@ enum CardinalDirections {
   WestNorthWest = "WNW",
   NorthWest = "NW",
   NorthNorthWest = "NNW",
+  Guard = "",
 }
 
 const windDirection = computed(() => {
@@ -103,6 +104,7 @@ const windDirection = computed(() => {
     return CardinalDirections.NorthNorthWest;
   if (props.windDeg >= 350 && props.windDeg < 360)
     return CardinalDirections.North;
+  return CardinalDirections.Guard;
 });
 </script>
 
