@@ -41,3 +41,8 @@ export type TOpenWeatherSuccessRequest = {
   name: string;
   cod: number;
 };
+
+export type TOpenWeatherError = {
+  code: string;
+  message: string;
+};
