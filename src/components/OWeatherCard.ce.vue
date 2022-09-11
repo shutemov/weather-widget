@@ -1,13 +1,13 @@
 <template>
   <div class="weather-card">
-    <h1 class="title">{{ countryTitle }}</h1>
+    <MWidgetHeader :title="countryTitle" />
     <MTemperatureInfo
       :weather-title="weatherTitle"
       :temperature="wholePartOfTemp"
       :icon-src="iconSrc"
     />
     <div class="description">
-      Feels like {{ feelsLikeTemp }}. {{ capitalizedWeatherDescription }}.
+      Feels like {{ feelsLikeTemp }} °C. {{ capitalizedWeatherDescription }}.
     </div>
     <MAdditionalWeatherInfo
       :wind-speed="windSpeed"
@@ -20,8 +20,9 @@
 </template>
 
 <script lang="ts" setup>
-import MTemperatureInfo from "./MTemperatureInfo.ce.vue";
-import MAdditionalWeatherInfo from "./MAdditionalWeatherInfo.ce.vue";
+import MTemperatureInfo from "@/components/MTemperatureInfo.ce.vue";
+import MAdditionalWeatherInfo from "@/components/MAdditionalWeatherInfo.ce.vue";
+import MWidgetHeader from "@/components/MWidgetHeader.ce.vue";
 
 import mockData from "@/assets/mockWeather.json";
 import { computed, onMounted, ref, PropType } from "vue";
@@ -39,8 +40,6 @@ const windSpeed = ref(0);
 const windDeg = ref(0);
 const pressure = ref(0);
 const visibility = ref(0);
-
-const weatherInfoImgSize = 25;
 
 onMounted(() => {
   const {
@@ -76,8 +75,6 @@ const props = defineProps({
     type: Object as PropType<TOpenWeatherSuccessRequest>,
   },
 });
-
-defineEmits(["click:settings"]);
 
 const iconSrc = computed(
   () => `http://openweathermap.org/img/wn/${icon.value}@4x.png`
