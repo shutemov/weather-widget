@@ -53,7 +53,9 @@
         <img
           class="enter"
           src="https://api.iconify.design/ion:add.svg"
-          @keydown.enter="addItem"
+          width="30"
+          height="30"
+          @click="addItem"
         />
       </div>
     </div>

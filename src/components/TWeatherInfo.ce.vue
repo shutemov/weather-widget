@@ -71,8 +71,8 @@ onMounted(async () => {
 
   > .cog {
     position: absolute;
-    top: 0px;
-    right: 8px;
+    top: 12px;
+    right: 0px;
   }
 }
 </style>

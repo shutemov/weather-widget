@@ -97,6 +97,7 @@ const countryTitle = computed(() => city.value + ", " + country.value);
 .weather-card {
   display: flex;
   flex-direction: column;
+  font-weight: 600;
 
   > .title {
     font-size: 15pt;
