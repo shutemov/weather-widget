@@ -40,9 +40,6 @@ onMounted(async () => {
           .then((permissionStatus) => {
             if (permissionStatus.state !== "denied")
               router.push({ name: Route.Home });
-            permissionStatus.onchange = () => {
-              console.log("test", permissionStatus.state);
-            };
           });
       }, 2000);
     }
