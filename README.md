@@ -28,6 +28,8 @@ Just add <weather-widget /> as an html tag and upload the script:
 + 1 widget per site
 + There is no support for props
 
+You can see how the widget works here: [https://shutemov.github.io/weather-widget/](https://shutemov.github.io/weather-widget/)
+
 ## Project setup
 ```
 yarn install
