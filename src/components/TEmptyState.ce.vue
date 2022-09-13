@@ -10,12 +10,15 @@
         src="https://api.iconify.design/wi:day-haze.svg"
         width="200"
         height="200"
+        alt="Logo: sunset"
       />
       <h2 class="subtitle">
         To work better, we need your permission to use geolocation, please
         activate it in the upper right corner or by clicking button
       </h2>
-      <button class="button" @click="handlePermission">I allowed it</button>
+      <button class="button" @click="handlePermission">
+        I have enabled geolocation
+      </button>
     </div>
   </div>
 </template>
@@ -71,6 +74,7 @@ const errorCb = () => {
       text-align: center;
       font-size: 12pt;
       color: #888;
+      font-weight: 400;
     }
 
     > .button {
