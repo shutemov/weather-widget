@@ -2,7 +2,7 @@
 Meet the weather-widget as a web component for your application based on Vue 3.  
 Just add <weather-widget /> as an html tag and upload the script:
 
-Current link to the app.js: [https://cdn.jsdelivr.net/gh/shutemov/weather-widget/dist/js/app.ad7efd3c.js](https://cdn.jsdelivr.net/gh/shutemov/weather-widget/dist/js/app.ad7efd3c.js)  
+Current link to the app.js: [https://cdn.jsdelivr.net/gh/shutemov/weather-widget/dist/js/app.642a08e3.js](https://cdn.jsdelivr.net/gh/shutemov/weather-widget/dist/js/app.642a08e3.js)  
 
 ```
 <!DOCTYPE html>
@@ -15,7 +15,7 @@ Current link to the app.js: [https://cdn.jsdelivr.net/gh/shutemov/weather-widget
 </head>
 <body>
     <weather-widget />
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/shutemov/weather-widget/dist/js/app.ad7efd3c.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/shutemov/weather-widget/dist/js/app.642a08e3.js"></script>
 </body>
 </html>
 ```
