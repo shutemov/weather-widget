@@ -18,6 +18,7 @@
       v-for="(item, index) in openWeatherData"
       :key="index"
       :city-data="item"
+      class="test"
     />
   </div>
 </template>
@@ -129,6 +130,17 @@ const handleUpdate = async () => {
     position: absolute;
     top: 12px;
     right: 40px;
+  }
+
+  > :deep(.weather-card) {
+    &:first-of-type {
+      > .header {
+        width: 75%;
+        > .title {
+          padding-right: 12px;
+        }
+      }
+    }
   }
 }
 </style>
