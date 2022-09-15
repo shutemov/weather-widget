@@ -70,7 +70,6 @@ import draggable from "vuedraggable";
 import MWidgetHeader from "@/components/MWidgetHeader.ce.vue";
 
 import openWeatherService from "@/services/openWeatherService";
-import { get, set } from "@/helpers/storage";
 import { EStorageKeys, TDataRow } from "@/types/types";
 import { Route } from "@/router";
 
@@ -83,7 +82,7 @@ const drag = ref(false);
 defineEmits(["click:close"]);
 
 onMounted(async () => {
-  const data = await get(EStorageKeys.Cities);
+  const data = localStorage.getItem(EStorageKeys.Cities);
   cities.value = data !== null ? JSON.parse(data) : [];
 });
 
@@ -164,7 +163,7 @@ const handleOrderChange = async () => {
 };
 
 const updateLocalStorage = async () =>
-  await set({ key: EStorageKeys.Cities, value: JSON.stringify(cities.value) });
+  localStorage.setItem(EStorageKeys.Cities, JSON.stringify(cities.value));
 
 const setWhiteSpaceBeforeCountry = (str: string) => {
   const city = str.split(",");

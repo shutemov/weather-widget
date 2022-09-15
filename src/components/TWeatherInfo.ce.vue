@@ -30,7 +30,6 @@ import { useRouter } from "vue-router";
 import OWeatherCard from "@/components/OWeatherCard.ce.vue";
 import OSettings from "@/components/OSettings.ce.vue";
 
-import { get } from "@/helpers/storage";
 import { EStorageKeys, TDataRow } from "@/types/types";
 import {
   TOpenWeatherError,
@@ -45,7 +44,7 @@ const openWeatherData: Ref<TOpenWeatherSuccessRequest[]> = ref([]);
 const router = useRouter();
 
 onMounted(async () => {
-  const data = await get(EStorageKeys.Cities);
+  const data = localStorage.getItem(EStorageKeys.Cities);
   cities.value = data !== null ? JSON.parse(data) : [];
 
   if (!cities.value.length) {
