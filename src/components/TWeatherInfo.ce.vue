@@ -1,4 +1,8 @@
 <template>
+  <div class="toast-wrapper" v-for="name in toasts" :key="name">
+    <MToast :text="`😔 Can't get data in ${name}`" />
+  </div>
+
   <div class="template-wrapper">
     <img
       src="https://api.iconify.design/fxemoji:wrench.svg"
@@ -28,6 +32,7 @@ import { useRouter } from "vue-router";
 
 import OWeatherCard from "@/components/OWeatherCard.ce.vue";
 import OSettings from "@/components/OSettings.ce.vue";
+import MToast from "@/components/MToast.ce.vue";
 
 import { getCurrentPosition } from "@/helpers/geoPosition";
 import { EStorageKeys, TDataRow } from "@/types/types";
@@ -40,6 +45,7 @@ import openWeatherService from "@/services/openWeatherService";
 
 const cities: Ref<TDataRow[]> = ref([]);
 const openWeatherData: Ref<TOpenWeatherSuccessRequest[]> = ref([]);
+const toasts: Ref<string[]> = ref([]);
 
 const router = useRouter();
 
@@ -85,6 +91,7 @@ const getWeatherForAllCities = async () => {
       const err = error as TOpenWeatherError;
 
       if (err.message === "city not found") {
+        if (!toasts.value.includes(name)) toasts.value.push(name);
       }
 
       cities.value = cities.value.filter((item) => item.name !== name);
@@ -135,6 +142,12 @@ const handleUpdate = async () => {
         }
       }
     }
+  }
+}
+
+.toast-wrapper {
+  &:not(:first-of-type) {
+    margin-top: 8px;
   }
 }
 </style>
