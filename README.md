@@ -6,7 +6,7 @@ You can see how the widget works here: [https://shutemov.github.io/weather-widge
 Just add <weather-widget /> as an html tag and upload the script:
 
 
-Current link to the app.js: [https://cdn.jsdelivr.net/gh/shutemov/weather-widget/docs/js/app.624ad1fb.js](https://cdn.jsdelivr.net/gh/shutemov/weather-widget/docs/js/app.624ad1fb.js)  
+Current link to the app.js: [https://cdn.jsdelivr.net/gh/shutemov/weather-widget/docs/js/app.211b5ef5.js](https://cdn.jsdelivr.net/gh/shutemov/weather-widget/docs/js/app.211b5ef5.js)  
 
 ```
 <!DOCTYPE html>
@@ -19,7 +19,7 @@ Current link to the app.js: [https://cdn.jsdelivr.net/gh/shutemov/weather-widget
 </head>
 <body>
     <weather-widget />
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/shutemov/weather-widget/docs/js/app.624ad1fb.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/shutemov/weather-widget/docs/js/app.211b5ef5.js"></script>
 </body>
 </html>
 ```
@@ -34,10 +34,10 @@ Current link to the app.js: [https://cdn.jsdelivr.net/gh/shutemov/weather-widget
 + 1 widget per site
 + There is no support for props
 
-### 🐞 Bug
++ It is necessary to serve html using a web server for the correct operation of the geo location api. It seems to be due to browser restrictions when working with files from the file system (_file:_//).
 
-There is a bug with the geo-location that I can't track in the allotted time.  
-When trying to use a component in an html _file_, navigator.geolocation.getCurrentPosition calls prompt every time it is called, while on github pages and with local serve everything works as expected.
+### 🔨What need to add:  
++ Props support in the web component (currently it is impossible to build a web component using the vue 3 cli).
 
 ## Project setup
 ```
