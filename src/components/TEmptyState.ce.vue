@@ -28,28 +28,17 @@ import { useRouter } from "vue-router";
 
 import MWidgetHeader from "@/components/MWidgetHeader.ce.vue";
 import { Route } from "@/router";
+import { getCurrentPosition } from "@/helpers/geoPosition";
 
 const router = useRouter();
 
-const handlePermission = () => {
-  navigator.geolocation.getCurrentPosition(successCb, errorCb);
-};
-
-const successCb = () => {
-  router.push({ name: Route.Home });
-};
-
-const errorCb = () => {
-  navigator.permissions
-    .query({ name: "geolocation" })
-    .then((permissionStatus) => {
-      if (
-        permissionStatus.state === "denied" ||
-        permissionStatus.state === "prompt"
-      )
-        return;
-      router.push({ name: Route.Home });
-    });
+const handlePermission = async () => {
+  try {
+    await getCurrentPosition();
+    router.push({ name: Route.Home });
+  } catch (err) {
+    return;
+  }
 };
 </script>
 
