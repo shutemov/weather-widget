@@ -23,7 +23,6 @@ const props = defineProps({
 defineEmits(["click:toast"]);
 
 onMounted(() => {
-  console.log("mounted");
   if (props.withoutTimer) return;
   setTimeout(() => {
     isShow.value = false;
