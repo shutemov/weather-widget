@@ -51,7 +51,7 @@ yarn serve
 
 ### Compiles and minifies for production
 ```
-yarn build
+yarn build:dist 
 ```
 
 ### Lints and fixes files
