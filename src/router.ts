@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import Settings from "@/components/OSettings.ce.vue";
+import TSettings from "@/components/TSettings.ce.vue";
 import TWeatherInfo from "@/components/TWeatherInfo.ce.vue";
 import TEmptyState from "@/components/TEmptyState.ce.vue";
 
@@ -14,7 +14,7 @@ export default createRouter({
   routes: [
     {
       path: "/settings",
-      component: Settings,
+      component: TSettings,
       name: Route.Settings,
     },
     {

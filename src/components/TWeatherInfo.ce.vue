@@ -31,7 +31,6 @@ import { onMounted, Ref, ref } from "vue";
 import { useRouter } from "vue-router";
 
 import OWeatherCard from "@/components/OWeatherCard.ce.vue";
-import OSettings from "@/components/OSettings.ce.vue";
 import MToast from "@/components/MToast.ce.vue";
 
 import { getCurrentPosition } from "@/helpers/geoPosition";
