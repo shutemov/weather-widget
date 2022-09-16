@@ -182,15 +182,18 @@ const setWhiteSpaceBeforeCountry = (str: string) => {
     display: flex;
     flex-direction: column;
     flex-grow: 0;
-    > .input-wrapper {
-      display: flex;
-      > .input {
-        flex-grow: 1;
-      }
-    }
-    > .title {
-      font-size: 10pt;
-    }
+  }
+
+  > .search-input > .input-wrapper {
+    display: flex;
+  }
+
+  > .search-input > .input-wrapper > .input {
+    flex-grow: 1;
+  }
+
+  > .search-input > .title {
+    display: flex;
   }
 
   > .cities-container {
@@ -203,23 +206,23 @@ const setWhiteSpaceBeforeCountry = (str: string) => {
       width: 0;
       height: 0;
     }
+  }
 
-    > .data-row {
-      display: flex;
-      justify-content: space-between;
-      min-height: 30px;
-      background-color: lightgray;
-      margin-top: 16px;
-      padding: 4px 8px;
+  > .cities-container > .data-row {
+    display: flex;
+    justify-content: space-between;
+    min-height: 30px;
+    background-color: lightgray;
+    margin-top: 16px;
+    padding: 4px 8px;
+  }
 
-      > .wrapper {
-        display: flex;
-        align-items: center;
+  > .cities-container > .data-row > .wrapper {
+    display: flex;
+    align-items: center;
 
-        > .title {
-          margin-left: 10px;
-        }
-      }
+    > .title {
+      margin-left: 10px;
     }
   }
 }
