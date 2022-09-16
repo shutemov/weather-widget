@@ -193,7 +193,7 @@ const setWhiteSpaceBeforeCountry = (str: string) => {
   }
 
   > .search-input > .title {
-    display: flex;
+    font-size: 10pt;
   }
 
   > .cities-container {
