@@ -1,8 +1,12 @@
 # ⛅\<weather-widget \/\>
-Meet the weather-widget as a web component for your application based on Vue 3.  
+Meet the weather-widget as a web component for your application based on Vue 3.   
+
+You can see how the widget works here: [https://shutemov.github.io/weather-widget/](https://shutemov.github.io/weather-widget/)  
+
 Just add <weather-widget /> as an html tag and upload the script:
 
-Current link to the app.js: [https://cdn.jsdelivr.net/gh/shutemov/weather-widget/dist/js/app.642a08e3.js](https://cdn.jsdelivr.net/gh/shutemov/weather-widget/dist/js/app.642a08e3.js)  
+
+Current link to the app.js: [https://cdn.jsdelivr.net/gh/shutemov/weather-widget/docs/js/app.624ad1fb.js](https://cdn.jsdelivr.net/gh/shutemov/weather-widget/docs/js/app.624ad1fb.js)  
 
 ```
 <!DOCTYPE html>
@@ -15,7 +19,7 @@ Current link to the app.js: [https://cdn.jsdelivr.net/gh/shutemov/weather-widget
 </head>
 <body>
     <weather-widget />
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/shutemov/weather-widget/dist/js/app.642a08e3.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/shutemov/weather-widget/docs/js/app.624ad1fb.js"></script>
 </body>
 </html>
 ```
@@ -34,8 +38,6 @@ Current link to the app.js: [https://cdn.jsdelivr.net/gh/shutemov/weather-widget
 
 There is a bug with the geo-location that I can't track in the allotted time.  
 When trying to use a component in an html _file_, navigator.geolocation.getCurrentPosition calls prompt every time it is called, while on github pages and with local serve everything works as expected.
-
-You can see how the widget works here: [https://shutemov.github.io/weather-widget/](https://shutemov.github.io/weather-widget/)
 
 ## Project setup
 ```
