@@ -18,7 +18,6 @@
       v-for="(item, index) in openWeatherData"
       :key="index"
       :city-data="item"
-      class="test"
     />
   </div>
 </template>
@@ -30,6 +29,7 @@ import { useRouter } from "vue-router";
 import OWeatherCard from "@/components/OWeatherCard.ce.vue";
 import OSettings from "@/components/OSettings.ce.vue";
 
+import { getCurrentPosition } from "@/helpers/geoPosition";
 import { EStorageKeys, TDataRow } from "@/types/types";
 import {
   TOpenWeatherError,
@@ -56,26 +56,22 @@ onMounted(async () => {
 });
 
 const handleEmptyState = async () => {
-  await navigator.permissions.query({ name: "geolocation" }).then(
-    async () => {
-      navigator.geolocation.getCurrentPosition(
-        async (geoLocationPosition) => {
-          const { latitude, longitude } = geoLocationPosition.coords;
-          const weather = await openWeatherService.getWeatherByLatAndLon(
-            latitude,
-            longitude
-          );
-          openWeatherData.value.push(weather);
-        },
-        () => {
-          router.push({ name: Route.HomeEmpty });
-        }
-      );
-    },
-    (err) => {
-      console.error("err", err);
-    }
-  );
+  const permissions = await navigator.permissions.query({
+    name: "geolocation",
+  });
+
+  if (permissions.state === "granted") {
+    const geoPosition = await getCurrentPosition();
+    const { latitude, longitude } = geoPosition.coords;
+    const weather = await openWeatherService.getWeatherByLatAndLon(
+      latitude,
+      longitude
+    );
+    openWeatherData.value.push(weather);
+
+    return;
+  }
+  router.push({ name: Route.HomeEmpty });
 };
 
 const getWeatherForAllCities = async () => {
@@ -89,7 +85,6 @@ const getWeatherForAllCities = async () => {
       const err = error as TOpenWeatherError;
 
       if (err.message === "city not found") {
-        alert(`We can't get weather data in: ${name}`);
       }
 
       cities.value = cities.value.filter((item) => item.name !== name);
