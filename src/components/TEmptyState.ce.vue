@@ -1,4 +1,9 @@
 <template>
+  <MToast
+    v-if="geolocationToast"
+    text="📍 The geo location is still unavailable"
+    without-timer
+  />
   <div class="empty-state-container">
     <MWidgetHeader
       action-img="https://api.iconify.design/fxemoji:wrench.svg"
@@ -24,19 +29,26 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 
 import MWidgetHeader from "@/components/MWidgetHeader.ce.vue";
+import MToast from "@/components/MToast.ce.vue";
+
 import { Route } from "@/router";
 import { getCurrentPosition } from "@/helpers/geoPosition";
 
 const router = useRouter();
 
+const geolocationToast = ref(false);
+
 const handlePermission = async () => {
   try {
     await getCurrentPosition();
+    geolocationToast.value = false;
     router.push({ name: Route.Home });
   } catch (err) {
+    geolocationToast.value = true;
     return;
   }
 };
